@@ -16,7 +16,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return view('category.categories');
+        $categories = Category::paginate(5);
+        $data = ['categories'=> $categories];
+        return view('category.categories',$data);
     }
 
     /**
@@ -32,12 +34,18 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\StoreCategoryRequest  $request        
      * @return \Illuminate\Http\Response
      */
     public function store(StoreCategoryRequest $request)
     {
         $validatedRequest = $request->validated();
+
+        $category = new Category;
+        $category->name =  trim($validatedRequest['name']);
+        $category->save();
+
+        return redirect()->route('category.index');
     }
 
     /**
@@ -48,7 +56,8 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        //
+        $data = ['category' => $category];
+        return view('category.deleteCategory',$data);
     }
 
     /**
@@ -59,7 +68,8 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        $data = ['category' => $category];
+        return view('category.editCategory',$data);
     }
 
     /**
@@ -69,9 +79,14 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(UpdateCategoryRequest $request, Category $category)
     {
-        //
+        $validatedRequest = $request->validated();
+
+        $category->name =  trim($validatedRequest['name']);
+        $category->save();
+
+        return redirect()->route('category.index');
     }
 
     /**
@@ -82,6 +97,7 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
+        return redirect()->route('category.index');
     }
 }

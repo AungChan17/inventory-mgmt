@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateCategoryRequest extends FormRequest
+class UpdateSupplierRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,11 +24,13 @@ class UpdateCategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'=>'required|unique:categories|max:50'
+            'name'=>'required|max:50',
+            'phone'=>'required|max:14',
+            'address'=>'required|max:255',
         ];
     }
 
-        /**
+    /**
      * Get the error messages for the defined validation rules.
      *
      * @return array
@@ -36,9 +38,9 @@ class UpdateCategoryRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.requird' => 'Category name is required',
-            'name.unique'=>'Category name must be unique',
-            'name.max'=>'Category name must be less than 50 characters',
+            'name.requird' => 'Supplier name is required',
+            'name.unique'=>'Supplier name must be unique',
+            'name.max'=>'Supplier name must be less than 50 characters',
         ];
     }
 

@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Categories') }}
+            {{ __('Suppliers') }}
         </h2>
     </x-slot>
 
@@ -10,15 +10,18 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
                     <div class="flex flex-row justify-end">
-                        <a href="{{ route('category.create') }}" class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-green-600 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-green-800">
-                        New Category
+                        <a href="{{ route('supplier.create') }}" class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-green-600 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-green-800">
+                        New Supplier
                         </a>
                     </div>
+
                     <div class="w-1/2 mx-auto overflow-x-auto relative shadow-md sm:rounded-lg">
                         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                             <thead class="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
                                 <tr>
-                                    <th class="py-3 px-6">Category</th>
+                                    <th class="py-3 px-6">Name</th>
+                                    <th class="py-3 px-6">Phone</th>
+                                    <th class="py-3 px-6">Address</th>
                                     <th class="py-3 px-6">Actions</th>
                                 </tr>
                             </thead>
@@ -26,33 +29,38 @@
                                 @php 
                                     $count = 1;
                                 @endphp
-                                @foreach ($categories as $category)
+                                @foreach ($suppliers as $supplier)
                                     @if ($count % 2 == 0)
                                         <tr class="bg-gray-100 border-b dark:bg-gray-900 dark:border-gray-700">
                                     @else
                                         <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
                                     @endif
                                     <td class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        {{$category->name}}
+                                        {{$supplier->name}}
                                     </td>
+
+                                    <td class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        {{$supplier->phone_number}}
+                                    </td>
+
+                                    <td class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        {{$supplier->address}}
+                                    </td>
+
                                     <td class="py-4 px-6">
-                                        <a href="{{route('category.edit', ['category'=>$category])}}" 
+                                        <a href="{{route('supplier.edit', ['supplier'=>$supplier])}}" 
                                         class="mr-2 font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
                                         
 
-
-                                        <!-- <button 
-                                        id="delete-modal-button"
-                                        class="inline text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" 
-                                        type="button" data-modal-toggle="popup-modal">
-                                            Delete
-                                        </button> -->
-                                        <form class="inline" method="POST" action="{{route('category.destroy',['category'=>$category])}}">
+                                        <form action="{{route('supplier.destroy',['supplier'=>$supplier])}}" class="inline" method="POST">
                                             @csrf
                                             @method('DELETE')
-                                            <button class="font-medium text-red-600 dark:text-red-500 hover:underline">
-                                                Delete</button>
+                                            <button
+                                            type="submit"
+                                                class="mr-2 font-medium text-red-600 dark:text-red-500 hover:underline">
+                                                    Delete</button>
                                         </form>
+
                                     </td>
                                 </tr>
                                     @php($count++)
@@ -60,6 +68,7 @@
                             </tbody>
                         </table>
                     </div>
+
                 </div>
             </div>
         </div>
