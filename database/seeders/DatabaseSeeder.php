@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 use Database\Seeders\UserSeeder;
+use Database\Seeders\SupplierSeeder;
+use Database\Seeders\CategorySeeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -23,7 +25,9 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         $this->call([
-            UserSeeder::class
+            UserSeeder::class,
+            SupplierSeeder::class,
+            CategorySeeder::class,
         ]);
     }
 }
