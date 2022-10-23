@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Product;
 use Database\Seeders\UserSeeder;
 use Database\Seeders\SupplierSeeder;
 use Database\Seeders\CategorySeeder;

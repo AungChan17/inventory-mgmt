@@ -44,10 +44,16 @@ class ProductController extends Controller
     {
         $validatedRequest = $request->validated();
 
+
         $product=new Product;
         $product->name=trim($validatedRequest['name']);
         $product->price=trim($validatedRequest['price']);
-        $product->photo=trim($validatedRequest['photo']);
+        $product->category_id=trim($request->input('categories'));
+        $product->supplier_id=trim($request->input('suppliers'));
+
+        $productPhoto = $request->file('photo')->store('products');
+        $product->photo=$productPhoto;
+
         $product->save();
 
         return redirect()->route('product.index');
