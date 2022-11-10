@@ -28,6 +28,10 @@
                         {{ __('Products')}}
                     </x-nav-link>
 
+                    <x-nav-link :href="route('transaction.index')" :active="request()->routeIs('transaction.index')" >
+                        {{ __('Transaction')}}
+                    </x-nav-link>
+
                 </div>
             </div>
 

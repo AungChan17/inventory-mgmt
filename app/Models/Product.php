@@ -21,4 +21,13 @@ class Product extends Model
         'category_id',
         'supplier_id'
     ];
+
+    /**
+     * Get the post that owns the comment.
+     */
+    public function transactions()
+    {
+        return $this->belongsTo(Transaction::class);
+    }
+
 }

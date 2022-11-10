@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateProductRequest;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Supplier;
+use Psy\CodeCleaner\ReturnTypePass;
 
 class ProductController extends Controller
 {
@@ -19,7 +20,8 @@ class ProductController extends Controller
     {
         $products=Product::paginate(5);
         $data=['products'=>$products];
-        return view('product.products',$data);
+        $product=Product::all();
+        return view('product.products',compact('product'),$data);
     }
 
     /**
@@ -51,8 +53,11 @@ class ProductController extends Controller
         $product->category_id=trim($request->input('categories'));
         $product->supplier_id=trim($request->input('suppliers'));
 
-        $productPhoto = $request->file('photo')->store('products');
+
+        $productPhoto = $request->file('photo')->store('product-photos', 'public');
         $product->photo=$productPhoto;
+
+    
 
         $product->save();
 
